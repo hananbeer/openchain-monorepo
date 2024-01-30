@@ -113,7 +113,8 @@ export const CallTraceTreeItem = (props: CallTraceTreeItemProps) => {
         }
     } else {
         if (parsedFunctionFragment) {
-            functionName = parsedFunctionFragment.name;
+            // functionName = parsedFunctionFragment.name;
+            functionName = parsedFunctionFragment.format('sighash');
 
             fragmentInputs = parsedFunctionFragment.inputs;
             functionParams = <>0x{node.input.substring(10)}</>;
@@ -184,7 +185,7 @@ export const CallTraceTreeItem = (props: CallTraceTreeItemProps) => {
         inputParamFlatView = (
             <ParamFlatView traceMetadata={traceMetadata} params={fragmentInputs} values={parsedInput} />
         );
-        inputParamTreeView = <ParamTreeView path={node.path + '.input'} params={fragmentInputs} values={parsedInput} />;
+        inputParamTreeView = <ParamTreeView title="parameters" path={node.path + '.input'} params={fragmentInputs} values={parsedInput} />;
     } else {
         inputParamFlatView = functionParams;
     }
@@ -193,7 +194,7 @@ export const CallTraceTreeItem = (props: CallTraceTreeItemProps) => {
             <ParamFlatView traceMetadata={traceMetadata} params={fragmentOutputs} values={parsedOutput} />
         );
         outputParamTreeView = (
-            <ParamTreeView path={node.path + '.output'} params={fragmentOutputs} values={parsedOutput} />
+            <ParamTreeView title="return value" path={node.path + '.output'} params={fragmentOutputs} values={parsedOutput} />
         );
     } else {
         outputParamFlatView = functionReturns;
@@ -322,9 +323,11 @@ export const CallTraceTreeItem = (props: CallTraceTreeItemProps) => {
             />
             <span style={{ color: '#9c9491' }}>{`[${node.gasUsed}]`}</span>
             {storageToggle}
-            &nbsp;
-            {address}.<span style={{ color: '#7b9726' }}>{functionName}</span>
-            {valueNode}({inputParamFlatView}) → ({outputParamFlatView})
+            <br />
+            <h4 style={{ margin: 0 }}>{address}</h4>
+            <h2 style={{ margin: 0, color: '#7b9726' }}>{functionName}{valueNode}</h2>
+            {!!fragmentInputs?.length && inputParamTreeView}
+            {!!fragmentOutputs?.length && outputParamTreeView}
         </>
     );
 

@@ -145,6 +145,10 @@ export function DecodeTab() {
                 JSON.stringify(values, (key, value) => (typeof value === 'bigint' ? value.toString() : value), 2),
             );
 
+            console.log('frag:',fragment.inputs);
+            console.log('vals:',values);
+            
+            debugger
             setTreeView(<ParamTreeView path={''} params={fragment.inputs} values={values} />);
         } catch (e: any) {
             setDecodedResult('Failed to decode data: ' + e.toString());

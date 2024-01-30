@@ -439,6 +439,7 @@ export const TraceTree = (props: TraceTreeProps) => {
             traceMetadata: traceMetadata,
             storageMetadata: storageMetadata,
             showStorageChanges: showStorageChanges,
+            sx: { border: '1px solid black' },
             children: children,
         };
 

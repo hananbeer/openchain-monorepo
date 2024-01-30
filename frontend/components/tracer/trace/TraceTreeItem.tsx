@@ -39,6 +39,7 @@ export const TraceTreeItem = (props: TraceTreeItemProps) => {
 
     return (
         <TreeItem
+            sx={{ border: '1px solid black', borderRadius: '5px', paddingRight: '15px', paddingBottom: '10px', marginTop: '10px' }}
             nodeId={nodeId}
             TransitionProps={{
                 mountOnEnter: true,

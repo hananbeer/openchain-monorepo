@@ -31,10 +31,10 @@ let formatValueWithParamType = (
         let address = value;
         let label: React.ReactNode = address;
         if (labels && labels[address.toLowerCase()]) {
-            label = `[${labels[address.toLowerCase()]}]`;
+            label = <span style={{ overflowWrap: 'anywhere' }}>{address} (<b>{labels[address.toLowerCase()]}</b>)</span>;
+        } else {
+            label = <span style={{ overflowWrap: 'anywhere' }}>{address}</span>;
         }
-
-        label = <span style={{ overflowWrap: 'anywhere' }}>{label}</span>;
 
         if (makeLink) {
             return (

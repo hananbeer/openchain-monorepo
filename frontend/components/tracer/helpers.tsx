@@ -26,7 +26,7 @@ export const BuiltinErrors: Record<
 
 export const TreeItemContentSpan = (props: TreeItemContentProps) => {
     return (
-        <span style={{ display: 'flex' }}>
+        <span style={{ display: 'flex', paddingTop: '10px' }}>
             <span
                 tabIndex={0}
                 onFocus={(event) => {
@@ -46,7 +46,7 @@ export const TreeItemContentSpan = (props: TreeItemContentProps) => {
                     event.stopPropagation();
                 }}
                 style={{
-                    whiteSpace: 'nowrap',
+                    // whiteSpace: 'nowrap',
                     fontFamily: 'monospace',
                     letterSpacing: 'initial',
                 }}
