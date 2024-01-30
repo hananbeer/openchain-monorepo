@@ -1,7 +1,7 @@
 import { AbiCoder, ParamType, Result, formatEther, getBytes } from 'ethers';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Grid } from '@mui/material';
+import { Checkbox, Grid } from '@mui/material';
 import * as React from 'react';
 import { useContext } from 'react';
 import { TraceEntryCall, TraceEntryLog, TraceEntrySload, TraceEntrySstore, TraceResponse } from '../api';
@@ -40,6 +40,8 @@ type CallTraceTreeItemProps = {
     node: TraceEntryCall;
 
     children?: JSX.Element[];
+
+    paramsAsTree?: boolean;
 };
 
 export const CallTraceTreeItem = (props: CallTraceTreeItemProps) => {
@@ -326,8 +328,8 @@ export const CallTraceTreeItem = (props: CallTraceTreeItemProps) => {
             <br />
             <h4 style={{ margin: 0 }}>{address}</h4>
             <h2 style={{ margin: 0, color: '#7b9726' }}>{functionName}{valueNode}</h2>
-            {!!fragmentInputs?.length && inputParamTreeView}
-            {!!fragmentOutputs?.length && outputParamTreeView}
+            {!!fragmentInputs?.length && (props.paramsAsTree ? inputParamTreeView : <p>parameters: {inputParamFlatView}</p>)}
+            {!!fragmentOutputs?.length && (props.paramsAsTree ? outputParamTreeView : <p>return value: {outputParamFlatView}</p>)}
         </>
     );
 

@@ -44,6 +44,8 @@ export const TraceTree = (props: TraceTreeProps) => {
     const [showStorageChanges, setShowStorageChanges] = React.useState<Set<string>>(new Set());
     const [expanded, setExpanded] = React.useState<string[]>([]);
 
+    const [paramsAsTree, setParamsAsTree] = React.useState(false);
+
     React.useMemo(() => {
         let defaultExpanded: string[] = [];
         let allStorageOps: Array<TraceEntrySload | TraceEntrySstore> = [];
@@ -439,13 +441,13 @@ export const TraceTree = (props: TraceTreeProps) => {
             traceMetadata: traceMetadata,
             storageMetadata: storageMetadata,
             showStorageChanges: showStorageChanges,
-            sx: { border: '1px solid black' },
             children: children,
         };
 
         if (node.type === 'call') {
             return (
                 <CallTraceTreeItem
+                    paramsAsTree={paramsAsTree}
                     {...commonProps}
                     expandTo={expandToNode}
                     requestStorageMetadata={requestStorageMetadata}
@@ -467,9 +469,15 @@ export const TraceTree = (props: TraceTreeProps) => {
 
     const treeItems = React.useMemo(() => {
         return recursivelyGenerateTree(traceResult.entrypoint);
-    }, [showStorageChanges, traceResult, storageMetadata]);
+    }, [showStorageChanges, traceResult, storageMetadata, paramsAsTree]);
+
+
     const l = (
         <>
+            <label>
+                <input type="checkbox" onChange={(e) => setParamsAsTree(e.target.checked)} />
+                Collapsible Params
+            </label>
             <TreeView
                 aria-label="rich object"
                 defaultCollapseIcon={<ExpandMoreIcon />}
